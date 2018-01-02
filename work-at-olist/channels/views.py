@@ -11,3 +11,9 @@ class CategoriesList(generics.ListAPIView):
 class ChannelsList(generics.ListAPIView):
     queryset = Channel.objects.all()
     serializer_class = ChannelSerializer
+
+
+class ChannelDetail(generics.RetrieveAPIView):
+    queryset = Channel.objects.all()
+    serializer_class = ChannelSerializer
+    lookup_field = 'uuid'
