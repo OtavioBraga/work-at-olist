@@ -4,7 +4,7 @@ from channels.models import Category, Channel
 
 class ResumedChannelSerializer(serializers.HyperlinkedModelSerializer):
     '''
-        This serializer a resumed version of ChannelSerializer
+        This serializer is a resumed version of ChannelSerializer,
         only to display the channel on a category.
     '''
 
