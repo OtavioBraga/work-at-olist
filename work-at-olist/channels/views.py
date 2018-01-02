@@ -3,17 +3,23 @@ from channels.models import Category, Channel
 from rest_framework import generics
 
 
-class CategoriesList(generics.ListAPIView):
+class CategoriesListView(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
-class ChannelsList(generics.ListAPIView):
+class ChannelsListView(generics.ListAPIView):
     queryset = Channel.objects.all()
     serializer_class = ChannelSerializer
 
 
-class ChannelDetail(generics.RetrieveAPIView):
+class ChannelDetailView(generics.RetrieveAPIView):
     queryset = Channel.objects.all()
     serializer_class = ChannelSerializer
+    lookup_field = 'uuid'
+
+
+class CategoryDetailView(generics.RetrieveAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
     lookup_field = 'uuid'
