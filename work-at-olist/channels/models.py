@@ -9,9 +9,10 @@ class Category(models.Model):
         E.g: Games > XBOX > Adventure...
     '''
 
-    uuid = models.UUIDField(
+    uuid = models.CharField(
         default=uuid.uuid4,
-        unique=True
+        unique=True,
+        max_length=36
     )
 
     name = models.CharField(
