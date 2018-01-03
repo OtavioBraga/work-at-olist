@@ -4,8 +4,8 @@ from django.conf import settings
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('channels.urls', namespace='channels')),
+    path('', admin.site.urls),
+    path('api/v1/', include('channels.urls', namespace='channels')),
 ]
 
 if settings.DEBUG:
