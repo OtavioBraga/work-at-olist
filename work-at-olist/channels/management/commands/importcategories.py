@@ -81,8 +81,8 @@ class Command(BaseCommand):
                 )
 
             self.stdout.write(self.style.SUCCESS(
-                'Successfully imported cats to {}'.format(options['channel']))
-            )
+                'Successfully imported categories to {}'.format(channel_name)
+            ))
 
         except Exception as e:
             raise e
