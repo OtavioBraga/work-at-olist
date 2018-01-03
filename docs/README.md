@@ -28,10 +28,10 @@ A demo of the project was hosted on Heroku at https://serene-earth-21150.herokua
 
 ##### Channels
 - <GET> **/api/v1/channel/** - List all channels
-- <GET> **/api/v1/channel/<uuid>** - Show details of a channel. Also shows parent categories in categories.
--- <uuid> Unique identifier of the channel used to avoid exposing the database ID
+- <GET> **/api/v1/channel/`<uuid>`** - Show details of a channel. Also shows parent categories in categories.
+-- `<uuid>` Unique identifier of the channel used to avoid exposing the database ID
 
 ##### Categories
 - <GET> **/api/v1/category/** - List all categories
-- <GET> **/api/v1/category/<uuid>** - Show details of a category with parents.
--- <uuid> Unique identifier of the category used to avoid exposing database ID
+- <GET> **/api/v1/category/`<uuid>`** - Show details of a category with parents.
+-- `<uuid>` Unique identifier of the category used to avoid exposing database ID
