@@ -1,9 +1,52 @@
-import json
 from django.urls import reverse
-
 from rest_framework.test import APITestCase
 from channels.models import Category, Channel
 from channels.serializers import ChannelSerializer
+from django.core.management import call_command, CommandError
+from django.test import TestCase
+from django.utils.six import StringIO
+import os
+
+
+class ImportCommandTestCase(TestCase):
+
+    def setUp(self):
+        tests_path = os.path.dirname(os.path.abspath(__file__))
+        self.file = os.path.join(tests_path, 'test_files/categories.txt')
+        self.channel = 'test_channel'
+        self.category = 'Desktop'
+        self.command = 'importcategories'
+        self.assert_message = 'Successfully imported categories to {}\n'.format(
+            self.channel
+        )
+
+        # Defined out to avoid printing the command message on tests
+        out = StringIO()
+        call_command(self.command, self.channel, self.file, stdout=out)
+
+    def test_if_arguments_is_required(self):
+        with self.assertRaises(CommandError):
+            call_command(self.command)
+
+    def test_command_output(self):
+        out = StringIO()
+        call_command(
+            self.command,
+            self.channel,
+            self.file,
+            stdout=out,
+            no_color=True
+        )
+        self.assertEquals(out.getvalue(), self.assert_message)
+
+    def test_if_channel_is_created(self):
+        self.assertTrue(Channel.objects.get(name=self.channel))
+
+    def test_if_last_category_is_created(self):
+        self.assertTrue(Category.objects.get(name=self.category))
+
+    def test_number_of_categories_created(self):
+        self.assertEqual(Category.objects.count(), 23)
 
 
 class ChannelAPIViewTestCase(APITestCase):
