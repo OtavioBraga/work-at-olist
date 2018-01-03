@@ -2,12 +2,26 @@ from django.db import models
 import uuid
 
 
+class CategoryManager(models.Manager):
+    '''
+        Manager for Category
+    '''
+
+    def get_queryset(self):
+        return super(
+            CategoryManager,
+            self
+        ).get_queryset().select_related('parent', 'channel')
+
+
 class Category(models.Model):
     '''
         This model represent a category on databse.
         Categories can be any general or comprehensive division.
         E.g: Games > XBOX > Adventure...
     '''
+
+    objects = CategoryManager()
 
     uuid = models.CharField(
         default=uuid.uuid4,
@@ -53,12 +67,26 @@ class Category(models.Model):
         return ' > '.join(path[::-1])
 
 
+class ChannelManager(models.Manager):
+    '''
+        Manager for Channel
+    '''
+
+    def get_queryset(self):
+        return super(
+            ChannelManager,
+            self
+        ).get_queryset().prefetch_related('category_set')
+
+
 class Channel(models.Model):
     '''
         This model represent a channel on databse.
         A channel is a way of making a product available.
         E.g: Submarino marketplace, Americanas marketplace...
     '''
+
+    objects = ChannelManager()
 
     uuid = models.UUIDField(
         default=uuid.uuid4,
