@@ -41,7 +41,16 @@ class Category(models.Model):
         ordering = ('created_at', )
 
     def __str__(self):
-        return self.name
+        path = [self.name]
+        next_parent = self.parent
+
+        while next_parent is not None:
+            path.append(self.parent.name)
+            next_parent = next_parent.parent
+
+        path.append(self.channel.name)
+
+        return ' > '.join(path[::-1])
 
 
 class Channel(models.Model):
